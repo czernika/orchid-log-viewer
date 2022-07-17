@@ -11,8 +11,8 @@ interface LogServiceContract
     /**
      * Get paginated list of logs
      *
-     * @param  int  $perPage
-     * @param  array  $options
+     * @param integer $perPage
+     * @param array $options
      * @return LengthAwarePaginator
      */
     public function paginate(int $perPage = 15, array $options = []): LengthAwarePaginator;

@@ -13,17 +13,25 @@ use Rap2hpoutre\LaravelLogViewer\LaravelLogViewer;
 
 class LogService implements LogServiceContract
 {
+
     private ?string $selected = null;
+
+    private ?string $level = null;
 
     public function __construct(
         private LaravelLogViewer $logViewer,
         private Request $request,
     ) {
         $this->selected = $this->request->get('file');
+        $this->level = $this->request->get('level');
     }
 
     /**
-     * {@inheritDoc}
+     * Get paginated list of logs
+     *
+     * @param integer $perPage
+     * @param array $options
+     * @return LengthAwarePaginator
      */
     public function paginate(int $perPage = 15, array $options = []): LengthAwarePaginator
     {
@@ -31,11 +39,12 @@ class LogService implements LogServiceContract
             $this->logViewer->setFile($this->selected);
         }
 
-        $logs = collect($this->logViewer->all());
+        $logs = collect($this->logViewer->all())
+                    ->when($this->level, fn($collection) => $collection->filter(fn($log) => $log['level'] === $this->level));
 
         $page = Paginator::resolveCurrentPage() ?: 1;
 
-        if (empty($options) || ! isset($options['path'])) {
+        if (empty($options) || !isset($options['path'])) {
             $options['path'] = route(Route::current()->getName());
         }
 
