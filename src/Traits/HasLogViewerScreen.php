@@ -6,6 +6,7 @@ namespace Czernika\OrchidLogViewer\Traits;
 
 use Czernika\OrchidLogViewer\Layouts\LogFilterLayout;
 use Czernika\OrchidLogViewer\Layouts\LogListLayout;
+use Illuminate\Support\Facades\Storage;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Layouts\Modal;
@@ -76,9 +77,13 @@ trait HasLogViewerScreen
      *
      * @return void
      */
-    protected function logViewerClearFile(): void
+    protected function logViewerClearFile(?string $file = null): void
     {
-        Toast::success(__('File was cleared'));
+        $file = $this->setFile($file);
+
+        Storage::disk(config('orchid-log.disk', 'log'))->put($file, '');
+
+        Toast::success(__('File :file was cleared', compact('file')));
     }
 
     /**
@@ -86,8 +91,27 @@ trait HasLogViewerScreen
      *
      * @return void
      */
-    protected function logViewerDeleteFile(): void
+    protected function logViewerDeleteFile(?string $file = null): void
     {
-        Toast::success(__('File was cleared'));
+        $file = $this->setFile($file);
+
+        Storage::disk(config('orchid-log.disk', 'log'))->delete($file);
+
+        Toast::success(__('File :file was deleted', compact('file')));
+    }
+
+    /**
+     * Get first file if not selected
+     *
+     * @param string|null $file
+     * @return string
+     */
+    private function setFile(?string $file = null): string
+    {
+        if (! $file) {
+            $file = head($this->logViewer->getFiles(true));
+        }
+
+        return $file;
     }
 }
