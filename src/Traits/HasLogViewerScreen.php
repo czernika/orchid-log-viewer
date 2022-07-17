@@ -4,25 +4,62 @@ declare(strict_types=1);
 
 namespace Czernika\OrchidLogViewer\Traits;
 
+use Czernika\OrchidLogViewer\Layouts\LogListLayout;
+use Orchid\Screen\Actions\Button;
+use Orchid\Support\Color;
+use Orchid\Support\Facades\Toast;
+
 trait HasLogViewerScreen
 {
-    public function logViewerCommandBar()
+    /**
+     * Get log screen command bar
+     *
+     * @return Button[]
+     */
+    public function logViewerCommandBar(): array
     {
-        // create command bar
+        return [
+            Button::make(__('Clear file'))
+                ->type(Color::WARNING())
+                ->icon('disc')
+                ->method('logViewerClearFile'),
+
+            Button::make(__('Delete file'))
+                ->type(Color::DANGER())
+                ->icon('trash')
+                ->method('logViewerDeleteFile'),
+        ];
     }
 
-    public function logViewerLayout()
+    /**
+     * Get log layout
+     *
+     * @return array
+     */
+    public function logViewerLayout(): array
     {
-        // create log layout table
+        return [
+            LogListLayout::class,
+        ];
     }
 
-    public function logViewerClearFile()
+    /**
+     * Clear selected log file
+     *
+     * @return void
+     */
+    public function logViewerClearFile(): void
     {
-        // clear selected file
+        Toast::success(__('Selected fle was cleared'));
     }
 
-    public function logViewerDeleteFile()
+    /**
+     * Delete selected log file
+     *
+     * @return void
+     */
+    public function logViewerDeleteFile(): void
     {
-        // delete selected file
+        Toast::success(__('Selected fle was deleted'));
     }
 }

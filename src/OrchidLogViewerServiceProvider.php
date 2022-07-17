@@ -13,13 +13,13 @@ class OrchidLogViewerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            dirname(__DIR__).'./config/orchid-log.php' => config_path('orchid-log.php'),
+            dirname(__DIR__).'/config/orchid-log.php' => config_path('orchid-log.php'),
         ], 'olv-config');
     }
 
     public function register()
     {
-        $this->mergeConfigFrom(dirname(__DIR__).'./config/orchid-log.php', 'orchid-log');
+        $this->mergeConfigFrom(dirname(__DIR__).'/config/orchid-log.php', 'orchid-log');
 
         $this->app->bind(LogServiceContract::class, LogService::class);
     }
