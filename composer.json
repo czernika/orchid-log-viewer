@@ -1,6 +1,11 @@
 {
     "name": "czernika/orchid-log-viewer",
     "description": "Simple Laravel log viewer for Orchid admin panel",
+    "keywords": [
+        "laravel",
+        "orchid",
+        "logs"
+    ],
     "type": "library",
     "require": {
         "orchid/platform": "^12.6",
@@ -10,7 +15,8 @@
     "authors": [
         {
             "name": "Aliakseyenka Ihar",
-            "email": "aliha.devs@gmail.com"
+            "email": "aliha.devs@gmail.com",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "stable",
@@ -21,5 +27,12 @@
     },
     "require-dev": {
         "laravel/pint": "^1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Czernika\\OrchidLogViewer\\OrchidLogViewerServiceProvider"
+            ]
+        }
     }
 }
