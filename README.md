@@ -46,6 +46,8 @@ public function layout(): iterable
 3. Add query parameters
 
 ```php
+use Czernika\OrchidLogViewer\Contracts\LogServiceContract;
+
 protected string $selected = 'laravel.log';
 
 public function query(LogServiceContract $logService): iterable
