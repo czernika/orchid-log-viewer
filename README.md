@@ -4,9 +4,9 @@ Based on [Laravel Log viewer](https://github.com/rap2hpoutre/laravel-log-viewer)
 
 See every log entry within your admin panel, clear and delete files
 
-[File](.github/IMAGES/file.png)
-[Level](.github/IMAGES/level.png)
-[Stack](.github/IMAGES/stack.png)
+![File](.github/IMAGES/file.png)
+![Level](.github/IMAGES/level.png)
+![Stack](.github/IMAGES/stack.png)
 
 > Requires at least PHP 8.0 and Laravel 9
 
