@@ -28,12 +28,12 @@ trait HasLogViewerScreen
             Button::make(__('Clear file'))
                 ->type(Color::WARNING())
                 ->icon('disc')
-                ->method('logViewerClearFile'),
+                ->method('logViewerClearFile', ['file' => $this->selected]),
 
             Button::make(__('Delete file'))
                 ->type(Color::DANGER())
                 ->icon('trash')
-                ->method('logViewerDeleteFile'),
+                ->method('logViewerDeleteFile', ['file' => $this->selected]),
         ];
     }
 
@@ -77,7 +77,7 @@ trait HasLogViewerScreen
      *
      * @return void
      */
-    protected function logViewerClearFile(?string $file = null): void
+    public function logViewerClearFile(?string $file = null): void
     {
         $file = $this->setFile($file);
 
@@ -91,7 +91,7 @@ trait HasLogViewerScreen
      *
      * @return void
      */
-    protected function logViewerDeleteFile(?string $file = null): void
+    public function logViewerDeleteFile(?string $file = null): void
     {
         $file = $this->setFile($file);
 
@@ -108,10 +108,6 @@ trait HasLogViewerScreen
      */
     private function setFile(?string $file = null): string
     {
-        if (! $file) {
-            $file = head($this->logViewer->getFiles(true));
-        }
-
-        return $file;
+        return $file ??= $this->selected;
     }
 }

@@ -16,4 +16,11 @@ interface LogServiceContract
      * @return LengthAwarePaginator
      */
     public function paginate(int $perPage = 15, array $options = []): LengthAwarePaginator;
+
+    /**
+     * Get name of selected file by default
+     *
+     * @return string
+     */
+    public function selected(): string;
 }

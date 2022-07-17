@@ -22,8 +22,38 @@ class LogService implements LogServiceContract
         private LaravelLogViewer $logViewer,
         private Request $request,
     ) {
-        $this->selected = $this->request->get('file');
-        $this->level = $this->request->get('level');
+        $this->setSelectedFile();
+        $this->setSelectedLevel();
+    }
+
+    /**
+     * Get name of selected file
+     *
+     * @return string
+     */
+    public function selected(): string
+    {
+        return $this->selected;
+    }
+
+    /**
+     * Set selected file
+     *
+     * @return void
+     */
+    private function setSelectedFile(): void
+    {
+        $this->selected = $this->request->get('file') ?? head($this->logViewer->getFiles(true));
+    }
+
+    /**
+     * Set selected level
+     *
+     * @return void
+     */
+    private function setSelectedLevel(): void
+    {
+        $this->level = $this->request->get('level') ?? 'error';
     }
 
     /**
