@@ -8,7 +8,7 @@
     ],
     "type": "library",
     "require": {
-        "orchid/platform": "^12.6",
+        "orchid/platform": "^13.0",
         "rap2hpoutre/laravel-log-viewer": "^2.2"
     },
     "license": "MIT",
