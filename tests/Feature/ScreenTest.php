@@ -2,6 +2,8 @@
 
 describe('screen', function () {
     it('shows screen when discover option is set to true', function () {
+        $this->withoutExceptionHandling();
+
         /** @var DynamicTestScreen $screen */
         $screen = $this->screen('platform.logs')
                     ->actingAs($this->admin());
