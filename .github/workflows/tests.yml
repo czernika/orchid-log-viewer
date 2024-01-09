@@ -46,6 +46,7 @@ jobs:
         run: |
           composer require "laravel/framework:${{ matrix.laravel-version }}" "orchestra/testbench:8.*" --no-interaction --no-update
           composer update --prefer-dist --no-interaction
+          ./vendor/bin/testbench orchid:install
 
       - name: Running tests
         run: composer test
