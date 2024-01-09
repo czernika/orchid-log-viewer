@@ -1,0 +1,67 @@
+{
+    "name": "czernika/orchid-log-viewer",
+    "description": "",
+    "license": "MIT",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "Aliakseyenka Ihar",
+            "email": "aliha.devs@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "orchid/platform": "^14.17"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.41",
+        "orchestra/testbench": "^8.19",
+        "pestphp/pest": "^2.30",
+        "plannr/laravel-fast-refresh-database": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Czernika\\OrchidLogViewer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\": "skeleton/app/",
+            "Database\\Factories\\": "skeleton/database/factories/",
+            "Database\\Seeders\\": "skeleton/database/seeders/",
+            "Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Czernika\\OrchidLogViewer\\OrchidLogServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve"
+        ],
+        "test": "./vendor/bin/pest"
+    }
+}
