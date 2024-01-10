@@ -2,7 +2,7 @@
     "name": "czernika/orchid-log-viewer",
     "description": "",
     "license": "MIT",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Aliakseyenka Ihar",
@@ -12,13 +12,16 @@
     ],
     "require": {
         "php": "^8.1",
-        "orchid/platform": "^14.17"
+        "orchid/platform": "^14.17",
+        "rap2hpoutre/laravel-log-viewer": "^2.3"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.41",
+        "laravel/pint": "^1.13",
         "orchestra/testbench": "^8.19",
         "pestphp/pest": "^2.30",
-        "plannr/laravel-fast-refresh-database": "^1.1"
+        "plannr/laravel-fast-refresh-database": "^1.1",
+        "mockery/mockery": "^1.6"
     },
     "autoload": {
         "psr-4": {
@@ -56,6 +59,7 @@
         ],
         "build": "@php vendor/bin/testbench workbench:build --ansi",
         "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "pint": "./vendor/bin/pint",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "serve": [
             "Composer\\Config::disableProcessTimeout",

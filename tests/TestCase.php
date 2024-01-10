@@ -4,17 +4,17 @@ namespace Tests;
 
 use App\Models\User;
 use Orchestra\Testbench\Concerns\WithWorkbench;
-use Plannr\Laravel\FastRefreshDatabase\Traits\FastRefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Orchid\Support\Testing\ScreenTesting;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Dashboard;
+use Orchid\Support\Testing\ScreenTesting;
+use Plannr\Laravel\FastRefreshDatabase\Traits\FastRefreshDatabase;
 use Tabuna\Breadcrumbs\Breadcrumbs;
 use Watson\Active\Active;
 
 abstract class TestCase extends BaseTestCase
 {
-    use WithWorkbench, FastRefreshDatabase, ScreenTesting;
+    use FastRefreshDatabase, ScreenTesting, WithWorkbench;
 
     protected function setUp(): void
     {
@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      */
     protected function defineEnvironment($app)
     {
@@ -30,7 +30,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      */
     protected function getPackageAliases($app): array
     {
