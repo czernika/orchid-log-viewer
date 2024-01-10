@@ -1,5 +1,7 @@
 # Orchid log viewer
 
+[![Run tests](https://github.com/czernika/orchid-log-viewer/actions/workflows/tests.yml/badge.svg)](https://github.com/czernika/orchid-log-viewer/actions/workflows/tests.yml)
+
 Orchid-style table layout to view and manage Laravel application storage logs within admin panel
 
 ![Orchid log table](https://github.com/czernika/orchid-log-viewer/blob/media/assets/screen.gif?raw=true)
