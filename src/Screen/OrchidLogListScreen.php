@@ -15,7 +15,6 @@ use Orchid\Screen\Layouts\Modal;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
-use Orchid\Support\Facades\Toast;
 
 class OrchidLogListScreen extends Screen
 {
@@ -43,7 +42,7 @@ class OrchidLogListScreen extends Screen
 
     public function permission(): ?iterable
     {
-        return null; // TODO permissions
+        return config('orchid-log.screen.permissions');
     }
 
     public function commandBar()
@@ -86,7 +85,7 @@ class OrchidLogListScreen extends Screen
         ];
 
         if (config('orchid-log.filters.enabled', true)) {
-           $layouts = [OrchidLogFilterLayout::class, ...$layouts];
+            $layouts = [OrchidLogFilterLayout::class, ...$layouts];
         }
 
         return $layouts;

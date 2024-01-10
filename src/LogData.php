@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Czernika\OrchidLogViewer;
 
-use Czernika\OrchidLogViewer\Contracts\Contentable;
-use Illuminate\Support\Str;
+use Czernika\OrchidLogViewer\Support\Traits\Contentable;
 
 /**
  * @method string context()
@@ -18,34 +17,13 @@ use Illuminate\Support\Str;
  * @method string inFile()
  * @method string date()
  */
-class LogData implements Contentable
+class LogData
 {
+    use Contentable;
+
     public function __construct(
         protected readonly array $data,
     ) {
-    }
-
-    /**
-     * Get any field from data array
-     */
-    public function get(string $field): string
-    {
-        $name = Str::of($field)->snake()->value();
-
-        if (isset($this->data[$name])) {
-            return $this->data[$name];
-        }
-
-        return '';
-    }
-
-    /**
-     * Use the power of Orchid - it uses `getContent` method under the hood to resolve Model attributes and relations.
-     * We're simulating this approach in order to use shortcut syntax without using `render` method
-     */
-    public function getContent(string $field): string
-    {
-        return $this->get($field);
     }
 
     /**
@@ -62,10 +40,5 @@ class LogData implements Contentable
             'error', 'critical', 'alert', 'emergency' => 'text-danger',
             default => '',
         };
-    }
-
-    public function __call(string $name, array $arguments): string
-    {
-        return $this->get($name);
     }
 }

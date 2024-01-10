@@ -14,17 +14,32 @@ return [
          | Useful when you need to override conflicting names, slugs or add an extra middleware to a route
          |
          */
+
         'discover' => true,
 
+        /*
+         |--------------------------------------------------------------------------
+         | Orchid permissions
+         |--------------------------------------------------------------------------
+         |
+         | Permissions required from authenticated user in order to access log screen
+         | Accepts string, array of strings or null. If you need more complexity you still can change
+         | default screen itself and write own permissions there
+         |
+         | Default: "null" - everyone can access. Consider to change it
+         */
+
+        'permissions' => null,
 
         /*
-        |--------------------------------------------------------------------------
-        | Screen route name
-        |--------------------------------------------------------------------------
-        |
-        | Route for log screen will be registered under this name
-        |
-        */
+         |--------------------------------------------------------------------------
+         | Screen route name
+         |--------------------------------------------------------------------------
+         |
+         | Route for log screen will be registered under this name
+         |
+         */
+
         'route' => 'platform.logs',
     ],
 
@@ -51,22 +66,37 @@ return [
 
     'filters' => [
         /*
-        |--------------------------------------------------------------------------
-        | Disable filters completely
-        |--------------------------------------------------------------------------
-        |
-        */
+         |--------------------------------------------------------------------------
+         | Disable filters completely
+         |--------------------------------------------------------------------------
+         |
+         */
+
         'enabled' => true,
-        
+
         /*
-        |--------------------------------------------------------------------------
-        | Filter keys
-        |--------------------------------------------------------------------------
-        |
-        | If you encounter some issues or conflicts with the name of used filter keys,
-        | you can change them here
-        */
+         |--------------------------------------------------------------------------
+         | Filter keys
+         |--------------------------------------------------------------------------
+         |
+         | If you encounter some issues or conflicts with the name of used filter keys,
+         | you can change them here
+         */
+
         'fileKey' => 'file',
         'levelKey' => 'level',
+    ],
+
+    'menu' => [
+        /*
+         |--------------------------------------------------------------------------
+         | Register menu automatically in a sidebar or not
+         |--------------------------------------------------------------------------
+         |
+         | If you encounter some issues or conflicts with the name of used filter keys,
+         | you can change them here
+         */
+
+        'register' => true,
     ],
 ];

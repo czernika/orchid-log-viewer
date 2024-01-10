@@ -8,5 +8,4 @@ use Czernika\OrchidLogViewer\Actions\DeleteLogFile;
 
 class TestDeleteLogFile extends DeleteLogFile
 {
-    
 }

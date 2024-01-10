@@ -7,9 +7,9 @@ namespace Czernika\OrchidLogViewer;
 use Czernika\OrchidLogViewer\Contracts\LogServiceContract;
 use Czernika\OrchidLogViewer\Services\LogService;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Log;
 use Orchid\Platform\Dashboard;
 use Orchid\Platform\OrchidServiceProvider;
+use Orchid\Screen\Actions\Menu;
 use Tabuna\Breadcrumbs\Trail;
 
 class OrchidLogServiceProvider extends OrchidServiceProvider
@@ -43,6 +43,20 @@ class OrchidLogServiceProvider extends OrchidServiceProvider
                     ->parent('platform.index')
                     ->push(trans('orchid-log::messages.screen.name'), route('platform.logs')));
         }
+    }
+
+    public function menu(): array
+    {
+        if (config('orchid-log.menu.register', true)) {
+            return [
+                Menu::make(trans('orchid-log::messages.screen.name'))
+                    ->icon('bs.bug')
+                    ->title(trans('orchid-log::messages.screen.name'))
+                    ->route('platform.logs'),
+            ];
+        }
+
+        return [];
     }
 
     protected function getConfigFilePath(): string

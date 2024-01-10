@@ -8,5 +8,4 @@ use Czernika\OrchidLogViewer\Actions\ClearLogFile;
 
 class TestClearLogFile extends ClearLogFile
 {
-    
 }

@@ -67,8 +67,6 @@ class LogFilter extends Filter
 
     /**
      * Hide/show the filter in the selection
-     *
-     * @return bool
      */
     public function isDisplay(): bool
     {

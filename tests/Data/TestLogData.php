@@ -8,5 +8,4 @@ use Czernika\OrchidLogViewer\LogData;
 
 class TestLogData extends LogData
 {
-    
 }

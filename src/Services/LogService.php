@@ -12,7 +12,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Route;
 use Rap2hpoutre\LaravelLogViewer\LaravelLogViewer;
 
 class LogService implements LogServiceContract
@@ -29,13 +28,11 @@ class LogService implements LogServiceContract
 
     /**
      * Get paginated logs
-     *
-     * @return LengthAwarePaginator
      */
     public function logs(): LengthAwarePaginator
     {
         $this->setSelectedFile();
-        
+
         $logs = $this->rawLogs();
 
         // Return early if there are no logs or when there are no log files at all.
@@ -49,8 +46,7 @@ class LogService implements LogServiceContract
 
             // Filter logs by level
             ->when($this->request->query->has($this->levelKey()), function (Collection $collection) {
-                return $collection->filter(fn (array $log) =>
-                    $log['level'] === $this->request->query->get($this->levelKey()));
+                return $collection->filter(fn (array $log) => $log['level'] === $this->request->query->get($this->levelKey()));
             })
 
             // Convert into LogData object
@@ -67,8 +63,6 @@ class LogService implements LogServiceContract
 
     /**
      * Get an array of log data
-     *
-     * @return array
      */
     public function rawLogs(): array
     {
@@ -78,8 +72,6 @@ class LogService implements LogServiceContract
     /**
      * The situation when there are lo logs at all is only one -
      * there are no any log files. To prevent error we check this data
-     *
-     * @return boolean
      */
     protected function logFileDoesntExist(array $logs): bool
     {
@@ -89,18 +81,14 @@ class LogService implements LogServiceContract
     /**
      * If there are at least on log file it will return at least one log
      * which consists of empty string. No log without texts - therefore check it
-     *
-     * @return boolean
      */
     protected function logsAreEmpty(array $logs): bool
     {
-        return '' === $logs[0]['text'];
+        return $logs[0]['text'] === '';
     }
 
     /**
      * Get the value for the file filter key
-     *
-     * @return string
      */
     public function fileKey(): string
     {
@@ -109,8 +97,6 @@ class LogService implements LogServiceContract
 
     /**
      * Get the value for the level filter key
-     *
-     * @return string
      */
     public function levelKey(): string
     {
@@ -119,8 +105,6 @@ class LogService implements LogServiceContract
 
     /**
      * Get the name of default log file
-     *
-     * @return string
      */
     public function defaultLogFile(): string
     {
@@ -129,9 +113,6 @@ class LogService implements LogServiceContract
 
     /**
      * Set file to be displayed as selected
-     *
-     * @param string|null $file
-     * @return void
      */
     public function setSelectedFile(?string $file = null): void
     {
@@ -142,8 +123,6 @@ class LogService implements LogServiceContract
 
     /**
      * Resolve selected file from request
-     *
-     * @return string
      */
     public function resolveSelectedFile(): string
     {
@@ -154,8 +133,6 @@ class LogService implements LogServiceContract
 
     /**
      * Get list of all available log files
-     *
-     * @return array
      */
     public function logFiles(): array
     {
@@ -164,9 +141,6 @@ class LogService implements LogServiceContract
 
     /**
      * Get log file from list by its key
-     *
-     * @param string $key
-     * @return string
      */
     public function logFile(string $key): string
     {
@@ -175,9 +149,6 @@ class LogService implements LogServiceContract
 
     /**
      * Clear all logs from file
-     *
-     * @param string $file
-     * @return void
      */
     public function clearFile(string $file): void
     {
@@ -186,9 +157,6 @@ class LogService implements LogServiceContract
 
     /**
      * Delete file itself
-     *
-     * @param string $file
-     * @return void
      */
     public function deleteFile(string $file): void
     {
