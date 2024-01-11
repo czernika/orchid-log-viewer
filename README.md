@@ -240,7 +240,7 @@ Also you can disable registration of menu item and route completely but you have
 
 ## Roadmap
 
-- [ ] - Add option to exclude "unreadable" log files from filters
+- [x] - Add option to exclude "unreadable" log files from filters
 - [ ] - Consider: maybe is it worth to register `platform.logs` permission which will be required in order to access screen?
 
 ## Testing
@@ -251,7 +251,11 @@ Using [Pest](https://pestphp.com/) as testing tool
 composer test
 ```
 
-**TODO** Feature tests are now falling apart, need to rewrite everything from scratch
+### TODOs
+
+- [ ] - Feature tests for custom screens/layout
+- [ ] - Unit tests for custom objects
+- [ ] - Tests for Filter
 
 ## License
 

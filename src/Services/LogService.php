@@ -136,7 +136,22 @@ class LogService implements LogServiceContract
      */
     public function logFiles(): array
     {
-        return $this->logViewer->getFiles(true);
+        $excluded = config('orchid-log.filters.exclude', []);
+
+        return array_filter($this->logViewer->getFiles(true), function (string $file, int $idx) use (&$excluded) {
+            if (in_array($file, $excluded, true)) {
+                unset($excluded[$idx]);
+                return false;
+            }
+            
+            foreach ($excluded as $excludedFile) {
+                if (preg_match($excludedFile, $file)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }, ARRAY_FILTER_USE_BOTH);
     }
 
     /**

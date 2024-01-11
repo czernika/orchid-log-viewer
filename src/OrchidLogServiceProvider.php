@@ -53,6 +53,7 @@ class OrchidLogServiceProvider extends OrchidServiceProvider
             return [
                 Menu::make(trans('orchid-log::messages.menu.name'))
                     ->icon('bs.bug')
+                    ->canSee(true) // TODO permissions
                     ->title(trans('orchid-log::messages.menu.title'))
                     ->route('platform.logs'),
             ];

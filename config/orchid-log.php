@@ -85,6 +85,20 @@ return [
 
         'fileKey' => 'file',
         'levelKey' => 'level',
+
+        /*
+         |--------------------------------------------------------------------------
+         | Exclude log files from filters
+         |--------------------------------------------------------------------------
+         |
+         | If you wish to exclude specific log files from filter, pass these files here.
+         | You can pass plain log file name or regex
+         |
+         */
+        'exclude' => [
+            // 'worker.log', // exclude specific file by name
+            // '/^laravel-(?!2024)\d+-\d{2}-\d{2}\.log$/', // exclude all logs for year older than 2024 with "daily" channel
+        ],
     ],
 
     'menu' => [
