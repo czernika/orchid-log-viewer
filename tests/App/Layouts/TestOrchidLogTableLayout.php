@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Layouts;
+namespace Tests\App\Layouts;
 
 use Czernika\OrchidLogViewer\Layouts\OrchidLogTableLayout;
 

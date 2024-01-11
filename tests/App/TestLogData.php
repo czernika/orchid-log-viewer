@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Data;
+namespace Tests\App;
 
 use Czernika\OrchidLogViewer\LogData;
 

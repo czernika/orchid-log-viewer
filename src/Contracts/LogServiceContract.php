@@ -18,7 +18,13 @@ interface LogServiceContract
      */
     public function resolveSelectedFile(): string;
 
+    /**
+     * Clear selected file
+     */
     public function clearFile(string $file): void;
 
+    /**
+     * Delete selected file
+     */
     public function deleteFile(string $file): void;
 }

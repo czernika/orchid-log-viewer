@@ -36,12 +36,14 @@ class OrchidLogServiceProvider extends OrchidServiceProvider
     public function routes(Router $route): void
     {
         if (config('orchid-log.screen.discover', true)) {
+            $name = config('orchid-log.screen.route', 'platform.logs');
+            
             $route
                 ->screen('logs', LogManager::screen())
-                ->name(config('orchid-log.screen.route', 'platform.logs'))
+                ->name($name)
                 ->breadcrumbs(fn (Trail $trail) => $trail
                     ->parent('platform.index')
-                    ->push(trans('orchid-log::messages.screen.name'), route('platform.logs')));
+                    ->push(trans('orchid-log::messages.screen.name'), route($name)));
         }
     }
 
@@ -49,9 +51,9 @@ class OrchidLogServiceProvider extends OrchidServiceProvider
     {
         if (config('orchid-log.menu.register', true)) {
             return [
-                Menu::make(trans('orchid-log::messages.screen.name'))
+                Menu::make(trans('orchid-log::messages.menu.name'))
                     ->icon('bs.bug')
-                    ->title(trans('orchid-log::messages.screen.name'))
+                    ->title(trans('orchid-log::messages.menu.title'))
                     ->route('platform.logs'),
             ];
         }

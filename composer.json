@@ -1,8 +1,8 @@
 {
     "name": "czernika/orchid-log-viewer",
-    "description": "",
+    "description": "Manage your Laravel app logs within Orchid admin panel ",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "Aliakseyenka Ihar",
@@ -18,10 +18,10 @@
     "require-dev": {
         "ergebnis/composer-normalize": "^2.41",
         "laravel/pint": "^1.13",
+        "mockery/mockery": "^1.6",
         "orchestra/testbench": "^8.19",
         "pestphp/pest": "^2.30",
-        "plannr/laravel-fast-refresh-database": "^1.1",
-        "mockery/mockery": "^1.6"
+        "plannr/laravel-fast-refresh-database": "^1.1"
     },
     "autoload": {
         "psr-4": {

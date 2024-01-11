@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Actions;
+namespace Tests\App\Actions;
 
 use Czernika\OrchidLogViewer\Actions\DeleteLogFile;
 

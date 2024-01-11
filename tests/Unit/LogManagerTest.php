@@ -6,11 +6,20 @@ use Czernika\OrchidLogViewer\Layouts\OrchidLogTableLayout;
 use Czernika\OrchidLogViewer\LogData;
 use Czernika\OrchidLogViewer\LogManager;
 use Czernika\OrchidLogViewer\Screen\OrchidLogListScreen;
-use Tests\Actions\TestClearLogFile;
-use Tests\Actions\TestDeleteLogFile;
-use Tests\Data\TestLogData;
-use Tests\Layouts\TestOrchidLogTableLayout;
-use Tests\Screen\TestOrchidLogListScreen;
+use Tests\App\Actions\TestClearLogFile;
+use Tests\App\Actions\TestDeleteLogFile;
+use Tests\App\TestLogData;
+use Tests\App\Layouts\TestOrchidLogTableLayout;
+use Tests\App\Screen\TestOrchidLogListScreen;
+
+afterAll(function () {
+    // Rollback
+    LogManager::useScreen(OrchidLogListScreen::class);
+    LogManager::useLayout(OrchidLogTableLayout::class);
+    LogManager::useMapper(LogData::class);
+    LogManager::clearLogFileUsing(ClearLogFile::class);
+    LogManager::deleteLogFileUsing(DeleteLogFile::class);
+});
 
 describe('log manager', function () {
     it('resolves default screen', function () {
@@ -20,9 +29,6 @@ describe('log manager', function () {
     it('can change screen', function () {
         LogManager::useScreen(TestOrchidLogListScreen::class);
         expect(LogManager::screen())->toBe(TestOrchidLogListScreen::class);
-
-        // Rollback
-        LogManager::useScreen(OrchidLogListScreen::class);
     });
 
     it('resolves default layout', function () {
@@ -32,9 +38,6 @@ describe('log manager', function () {
     it('can change layout', function () {
         LogManager::useLayout(TestOrchidLogTableLayout::class);
         expect(LogManager::layout())->toBe(TestOrchidLogTableLayout::class);
-
-        // Rollback
-        LogManager::useLayout(OrchidLogTableLayout::class);
     });
 
     it('resolves default mapper', function () {
@@ -44,9 +47,6 @@ describe('log manager', function () {
     it('can change mapper', function () {
         LogManager::useMapper(TestLogData::class);
         expect(LogManager::mapper())->toBe(TestLogData::class);
-
-        // Rollback
-        LogManager::useMapper(LogData::class);
     });
 
     it('resolves default clear action', function () {
@@ -56,9 +56,6 @@ describe('log manager', function () {
     it('can change clear action', function () {
         LogManager::clearLogFileUsing(TestClearLogFile::class);
         expect(LogManager::clearLogFileAction())->toBe(TestClearLogFile::class);
-
-        // Rollback
-        LogManager::clearLogFileUsing(ClearLogFile::class);
     });
 
     it('resolves default delete action', function () {
@@ -68,8 +65,5 @@ describe('log manager', function () {
     it('can change delete action', function () {
         LogManager::deleteLogFileUsing(TestDeleteLogFile::class);
         expect(LogManager::deleteLogFileAction())->toBe(TestDeleteLogFile::class);
-
-        // Rollback
-        LogManager::deleteLogFileUsing(DeleteLogFile::class);
     });
 });

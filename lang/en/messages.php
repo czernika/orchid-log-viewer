@@ -36,4 +36,9 @@ return [
             'success_message' => 'File :file was removed',
         ],
     ],
+
+    'menu' => [
+        'name' => 'Logs',
+        'title' => 'Logs',
+    ],
 ];
