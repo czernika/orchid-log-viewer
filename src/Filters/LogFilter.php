@@ -70,7 +70,8 @@ class LogFilter extends Filter
      */
     public function isDisplay(): bool
     {
-        return ! empty($this->logService->logFiles());
+        return config('orchid-log.filters.enabled', true) &&
+            ! empty($this->logService->logFiles());
     }
 
     protected function logLevels(): array

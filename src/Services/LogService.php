@@ -141,9 +141,10 @@ class LogService implements LogServiceContract
         return array_filter($this->logViewer->getFiles(true), function (string $file, int $idx) use (&$excluded) {
             if (in_array($file, $excluded, true)) {
                 unset($excluded[$idx]);
+
                 return false;
             }
-            
+
             foreach ($excluded as $excludedFile) {
                 if (preg_match($excludedFile, $file)) {
                     return false;

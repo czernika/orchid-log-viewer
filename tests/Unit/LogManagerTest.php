@@ -8,9 +8,9 @@ use Czernika\OrchidLogViewer\LogManager;
 use Czernika\OrchidLogViewer\Screen\OrchidLogListScreen;
 use Tests\App\Actions\TestClearLogFile;
 use Tests\App\Actions\TestDeleteLogFile;
-use Tests\App\TestLogData;
 use Tests\App\Layouts\TestOrchidLogTableLayout;
 use Tests\App\Screen\TestOrchidLogListScreen;
+use Tests\App\TestLogData;
 
 afterAll(function () {
     // Rollback

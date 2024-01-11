@@ -37,7 +37,7 @@ class OrchidLogServiceProvider extends OrchidServiceProvider
     {
         if (config('orchid-log.screen.discover', true)) {
             $name = config('orchid-log.screen.route', 'platform.logs');
-            
+
             $route
                 ->screen('logs', LogManager::screen())
                 ->name($name)

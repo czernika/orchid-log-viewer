@@ -68,7 +68,8 @@ class OrchidLogListScreen extends Screen
 
     public function layout(): iterable
     {
-        $layouts = [
+        return [
+            OrchidLogFilterLayout::class,
             Layout::modal('logModal', [
                 Layout::rows([
                     TextArea::make('stack')
@@ -83,12 +84,6 @@ class OrchidLogListScreen extends Screen
 
             LogManager::layout(),
         ];
-
-        if (config('orchid-log.filters.enabled', true)) {
-            $layouts = [OrchidLogFilterLayout::class, ...$layouts];
-        }
-
-        return $layouts;
     }
 
     public function asyncGetLog(string $stack): array

@@ -2,13 +2,13 @@
 
 [![Run tests](https://github.com/czernika/orchid-log-viewer/actions/workflows/tests.yml/badge.svg)](https://github.com/czernika/orchid-log-viewer/actions/workflows/tests.yml)
 
-Orchid-style table layout to view and manage Laravel application storage logs within admin panel
+Log table layout designed in Orchid style allows you to view and manage Laravel application storage logs within admin panel
 
 ![Orchid log table](https://github.com/czernika/orchid-log-viewer/blob/media/assets/screen.gif?raw=true)
 
 ## Support
 
-Version 1.x requires PHP at least 8.1, Orchid version 14 or higher and Laravel version 10+
+Version 1.x requires PHP greater than 8.1, Orchid version 14 or higher and Laravel version 10+
 
 | Version | PHP  | Laravel | Orchid |
 |---------|------|---------|--------|
@@ -24,7 +24,9 @@ Install package via composer
 composer require czernika/orchid-log-viewer
 ```
 
-All you need to do now is to access `logs` page (it should be available under Orchid prefix, most likely it will `/admin/logs`)
+That's it. Package registers menu item and screen for you. All you need to do now is to access `logs` page (it should be available under Orchid prefix, most likely it will be `/admin/logs`)
+
+### Publish configuration
 
 If you need to publish configuration and localization files run following command
 
@@ -32,17 +34,17 @@ If you need to publish configuration and localization files run following comman
 php artisan vendor:publish --provider="Czernika\OrchidLogViewer\OrchidLogServiceProvider"
 ```
 
-Configuration file contains comments which should help you to understand package little bit more
+Configuration file contains comments which should help you to understand this package little bit more
 
 ## Configuration
 
-This package is ready to work out of the box. However you may change anything you wish by your needs
+This package is ready to work out of the box. However you may change any options you wish by your needs
 
-### Changing Screen
+### Changing default Screen
 
-If you need to change some data on a Screen and there is no config option for that you still can completely change Screen itself
+If you need to change some data on a Screen and there is no config option for that you still can completely override Screen itself
 
-Create new class and extend it from `OrchidLogListScreen` class
+Create new custom screen class and extend it from `OrchidLogListScreen` class
 
 ```php
 use Czernika\OrchidLogViewer\Screen\OrchidLogListScreen;
@@ -53,7 +55,7 @@ class CustomLogListScreen extends OrchidLogListScreen
 }
 ```
 
-Register it in `AppServiceProvider` in order to use it
+Register it in `AppServiceProvider`. This way package will be aware of using custom screen instead of default one
 
 ```php
 use Czernika\OrchidLogViewer\LogManager;
@@ -64,11 +66,11 @@ public function boot()
 }
 ```
 
-Default layout consists of three parts - Filters, Modal for stack trace and Table. Table hits `logs` target - make sure it is return in a query method or change layout
+Default layout consists of three parts - Filters, Modal for stack trace and Table. This mostly should be the same for custom screen. Table hits `logs` target - make sure it was returned within a `query()` method or change layout
 
-### Changing Layout
+### Changing default Layout
 
-If you need to extend columns, add new one it is also possible
+If you need to extend columns or add new one it is also possible
 
 Same technique - create new class and extend it from `OrchidLogTableLayout` class
 
@@ -81,7 +83,7 @@ class CustomLogTableLayout extends OrchidLogTableLayout
 }
 ```
 
-Register it in `AppServiceProvider` in order to use it
+Register it in `AppServiceProvider`
 
 ```php
 use Czernika\OrchidLogViewer\LogManager;
@@ -92,11 +94,25 @@ public function boot()
 }
 ```
 
+Add custom columns. You may use some of default columns as these:
+
+```php
+public function columns(): iterable
+{
+    return [
+        $this->levelColumn(), // Level icon with level name
+        $this->textColumn(), // Log message text (70% table wide)
+        $this->stackTraceColumn(), // Stack trace modal button
+        $this->dateColumn(), // Date column
+    ];
+}
+```
+
 ### Change LogData object
 
-All logs returned as `Czernika\OrchidLogViewer\LogData` class. It has access to all properties from [rap2hpoutre/laravel-log-viewer](https://github.com/rap2hpoutre/laravel-log-viewer) package but in a object
+All logs returned as `Czernika\OrchidLogViewer\LogData` class. It has access to all properties from [rap2hpoutre/laravel-log-viewer](https://github.com/rap2hpoutre/laravel-log-viewer) package but in a object way
 
-Basic log represents an array with the following data
+Basic log represents an array with the following data:
 
 ```php
 [
@@ -111,7 +127,7 @@ Basic log represents an array with the following data
 ]
 ```
 
-This package converts it into `LogData` class with array of data as the only parameter in order to access all its data in a convinient way (via methods with the same name but in a camelCase) ...
+This package converts it into `LogData` class with array of data as the only parameter in order to access all of it in a convinient way (via methods with the same name but in a camelCase) ...
 
 ```php
 $log->text();
@@ -169,7 +185,7 @@ TD::make('are_we_good')
     ->render(fn (CustomLogData $log) => $log->areWeGood()),
 ```
 
-If you wish to keep possibility for Orchid shortcuts name array of data as `$data` variable and use `Czernika\OrchidLogViewer\Support\Traits\Contentable` trait
+If you wish to keep possibility for Orchid shortcuts name array of data as `$data` variable and use `Contentable` trait in custom class
 
 ```php
 use Czernika\OrchidLogViewer\Support\Traits\Contentable;
@@ -189,17 +205,19 @@ class CustomLogData
 }
 ```
 
-And remove render function
+And create column without render function
 
 ```php
-TD::make('areWeGood'), // pass name in a exact case as method in a custom class (not `are_we_good` in this case)
+TD::make('areWeGood'), // pass name in a exact case as method in a custom class (not `are_we_good`)
 ```
 
-Of course you need to change Table layout also
+> Of course you need to change Table layout also in case you need custom columns
 
 ### Change actions (clear and delete)
 
-Clear and delete actions basically clear and delete files, shows toasts and redirect back to the specified route. If you need to do extra work you may change behavior of these actions by registering your own
+Clear and delete actions basically clears and deletes files, shows toasts and redirects back to the specified route. If you need to do extra work you may change behavior of these actions by registering your own
+
+> There is no event registered for exact this reason - you still have full control over process via custom Actions
 
 ```php
 use Czernika\OrchidLogViewer\LogManager;
@@ -223,14 +241,14 @@ public function handle(LogServiceContract $logService, string $file): void
 }
 ```
 
-`$logService` has access to methods to clear or delete file (as `clearFile($file)` and `deleteFile($file)`). `$file` variables contains basename of the log file (not the full path to it)
+`$logService` has access to methods to clear or delete file (as `clearFile($file)` and `deleteFile($file)`). `$file` variable contains basename of the log file (not the full path to it, eg 'laravel.log' and not '/var/www/html/storage/logs/laravel.log')
 
-> Note - no need to redirect in action - it should NOT return response
-> Package handles redirects itself
+> Note - no need to redirect in action - it should NOT return any response
+> Package handles redirects itself in order to prevent errors with selected file
 
 ### Other options
 
-In a configuration file you can disable filters - it may be useful when you're using `stack` log channel and therefore you have one file only
+In a configuration file you can disable filters completely - it may be useful when you're using `stack` log channel and therefore you have one file only
 
 Also you can disable registration of menu item and route completely but you have to re-register them on your own
 
@@ -241,6 +259,7 @@ Also you can disable registration of menu item and route completely but you have
 ## Roadmap
 
 - [x] - Add option to exclude "unreadable" log files from filters
+- [ ] - Add more permissions to see menu item and action buttons
 - [ ] - Consider: maybe is it worth to register `platform.logs` permission which will be required in order to access screen?
 
 ## Testing

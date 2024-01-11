@@ -4,7 +4,6 @@ use Czernika\OrchidLogViewer\LogData;
 use Czernika\OrchidLogViewer\LogManager;
 use Czernika\OrchidLogViewer\Screen\OrchidLogListScreen;
 use Illuminate\Testing\TestResponse;
-use Tests\App\Screen\TestOrchidLogListScreen;
 
 uses()->group('feature.screen');
 

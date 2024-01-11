@@ -3,6 +3,7 @@
 ## v1.0.2 Jan 11, 2024 
 
 - Feat: added option to exclude files from filter
+- Feat: added option to use default columns in custom layout table
 
 ## v1.0.1 Jan 11, 2024 
 
