@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Czernika\OrchidLogViewer\Filters;
 
-use Czernika\OrchidLogViewer\Services\LogService;
+use Czernika\OrchidLogViewer\Contracts\LogServiceContract;
 use Illuminate\Database\Eloquent\Builder;
 use Orchid\Filters\Filter;
 use Orchid\Screen\Fields\Select;
@@ -12,7 +12,7 @@ use Orchid\Screen\Fields\Select;
 class LogFilter extends Filter
 {
     public function __construct(
-        protected readonly LogService $logService,
+        protected readonly LogServiceContract $logService,
     ) {
         parent::__construct();
     }
@@ -51,18 +51,24 @@ class LogFilter extends Filter
      */
     public function display(): iterable
     {
-        return [
-            Select::make($this->logService->levelKey())
+        $filters = [];
+
+        if (config('orchid-log.filters.enabled.file', true)) {
+            $filters[] = Select::make($this->logService->fileKey())
+                ->title('orchid-log::messages.filter.headings.file')
+                ->options($this->logService->logFiles())
+                ->value($this->request->get($this->logService->fileKey()));
+        }
+
+        if (config('orchid-log.filters.enabled.level', true)) {
+            $filters[] = Select::make($this->logService->levelKey())
                 ->title('orchid-log::messages.filter.headings.level')
                 ->options($this->logLevels())
                 ->empty(__('All'))
-                ->value($this->request->get($this->logService->levelKey())),
+                ->value($this->request->get($this->logService->levelKey()));
+        }
 
-            Select::make($this->logService->fileKey())
-                ->title('orchid-log::messages.filter.headings.file')
-                ->options($this->logService->logFiles())
-                ->value($this->request->get($this->logService->fileKey())),
-        ];
+        return $filters;
     }
 
     /**
@@ -70,7 +76,7 @@ class LogFilter extends Filter
      */
     public function isDisplay(): bool
     {
-        return config('orchid-log.filters.enabled', true) &&
+        return ! empty($this->display()) &&
             ! empty($this->logService->logFiles());
     }
 
@@ -97,14 +103,14 @@ class LogFilter extends Filter
 
     public function value(): string
     {
-        $file = trans('orchid-log::messages.filter.file').': '.$this->logService->logFile($this->request->get($this->logService->fileKey()));
+        $value = trans('orchid-log::messages.filter.file').': '.$this->logService->resolveSelectedFile();
 
         if ($this->request->query->has($this->logService->levelKey())) {
-            return $file.'; '.trans('orchid-log::messages.filter.level').': '.$this->logLevelLabel(
+            $value .= '; '.trans('orchid-log::messages.filter.level').': '.$this->logLevelLabel(
                 $this->request->query->get($this->logService->levelKey())
             );
         }
 
-        return $file;
+        return $value;
     }
 }

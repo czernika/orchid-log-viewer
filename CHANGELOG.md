@@ -1,5 +1,10 @@
 # Releases
 
+## v1.0.3 Jan 11, 2024 
+
+- Feat: separated logic to show filters
+- Feat: added options to configure table pagination
+
 ## v1.0.2 Jan 11, 2024 
 
 - Feat: added option to exclude files from filter

@@ -28,6 +28,17 @@ describe('default screen', function () {
             ->assertSee('Manage app storage logs');
     });
 
+    it('action buttons', function () {
+        $this->mockLogsWith();
+
+        /** @var TestResponse */
+        $response = $this->see();
+
+        $response
+            ->assertSee(sprintf('formaction="%s"', route('platform.logs', ['method' => 'clear', 'file' => 'laravel.log'])), false)
+            ->assertSee(sprintf('formaction="%s"', route('platform.logs', ['method' => 'delete', 'file' => 'laravel.log'])), false);
+    });
+
     it('shows empty table if there are no logs', function () {
         $this->mockLogsWith();
 

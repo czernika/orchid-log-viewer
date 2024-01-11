@@ -27,4 +27,24 @@ interface LogServiceContract
      * Delete selected file
      */
     public function deleteFile(string $file): void;
+
+    /**
+     * Name of the level filter ley
+     */
+    public function levelKey(): string;
+
+    /**
+     * Name of the file level key
+     */
+    public function fileKey(): string;
+
+    /**
+     * Get log file name
+     */
+    public function logFile(string $key): string;
+
+    /**
+     * Get log files
+     */
+    public function logFiles(): array;
 }

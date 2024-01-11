@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Czernika\OrchidLogViewer\Screen;
 
-use Czernika\OrchidLogViewer\Actions\ClearLogFile;
-use Czernika\OrchidLogViewer\Actions\DeleteLogFile;
 use Czernika\OrchidLogViewer\Contracts\LogServiceContract;
 use Czernika\OrchidLogViewer\Layouts\OrchidLogFilterLayout;
 use Czernika\OrchidLogViewer\LogManager;
@@ -101,22 +99,16 @@ class OrchidLogListScreen extends Screen
         return true; // TODO permissions
     }
 
-    public function clear(string $file)
+    public function clear(string $file, LogManager $logManager)
     {
-        /** @var ClearLogFile $clearAction */
-        $clearAction = app(LogManager::clearLogFileAction());
-
-        $clearAction->handle($this->logService, $file);
+        $logManager->clearLogFile()->handle($this->logService, $file);
 
         return back();
     }
 
-    public function delete(string $file)
+    public function delete(string $file, LogManager $logManager)
     {
-        /** @var DeleteLogFile $deleteAction */
-        $deleteAction = app(LogManager::deleteLogFileAction());
-
-        $deleteAction->handle($this->logService, $file);
+        $logManager->deleteLogFile()->handle($this->logService, $file);
 
         // Need to clear any query params, therefore cannot use `back()`
         return to_route(config('orchid-log.screen.route', 'platform.logs'));

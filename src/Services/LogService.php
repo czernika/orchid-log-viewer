@@ -16,10 +16,6 @@ use Rap2hpoutre\LaravelLogViewer\LaravelLogViewer;
 
 class LogService implements LogServiceContract
 {
-    protected int $perPage = 15;
-
-    protected string $pageName = 'page';
-
     public function __construct(
         protected readonly LaravelLogViewer $logViewer,
         protected readonly Request $request,
@@ -39,7 +35,7 @@ class LogService implements LogServiceContract
         // Package creates at least one line anyway with empty text
         // but there are no errors can be without text
         if ($this->logFileDoesntExist($logs) || $this->logsAreEmpty($logs)) {
-            return new LengthAwarePaginator([], 0, $this->perPage);
+            return new LengthAwarePaginator([], 0, $this->perPage());
         }
 
         $logs = collect($logs)
@@ -53,12 +49,28 @@ class LogService implements LogServiceContract
             ->mapInto(LogManager::mapper());
 
         return new LengthAwarePaginator(
-            $logs->forPage($page = Paginator::resolveCurrentPage(), $this->perPage),
+            $logs->forPage($page = Paginator::resolveCurrentPage(), $this->perPage()),
             $logs->count(),
-            $this->perPage,
+            $this->perPage(),
             $page,
-            ['pageName' => $this->pageName, 'path' => route(config('orchid-log.screen.route', 'platform.logs'))],
+            ['pageName' => $this->pageName(), 'path' => route(config('orchid-log.screen.route', 'platform.logs'))],
         );
+    }
+
+    /**
+     * Amount of logs to show
+     */
+    protected function perPage(): int
+    {
+        return config('orchid-log.table.per_page', 15);
+    }
+
+    /**
+     * Pagination `pageName` option
+     */
+    protected function pageName(): int
+    {
+        return config('orchid-log.table.page_name', 'page');
     }
 
     /**

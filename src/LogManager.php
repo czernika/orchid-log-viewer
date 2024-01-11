@@ -6,6 +6,7 @@ namespace Czernika\OrchidLogViewer;
 
 use Czernika\OrchidLogViewer\Actions\ClearLogFile;
 use Czernika\OrchidLogViewer\Actions\DeleteLogFile;
+use Czernika\OrchidLogViewer\Contracts\HandlesLogs;
 use Czernika\OrchidLogViewer\Layouts\OrchidLogTableLayout;
 use Czernika\OrchidLogViewer\Screen\OrchidLogListScreen;
 
@@ -56,6 +57,11 @@ class LogManager
         return static::$clearAction;
     }
 
+    public function clearLogFile(): HandlesLogs
+    {
+        return app(static::clearLogFileAction());
+    }
+
     public static function clearLogFileUsing(string $action): void
     {
         static::$clearAction = $action;
@@ -64,6 +70,11 @@ class LogManager
     public static function deleteLogFileAction(): string
     {
         return static::$deleteAction;
+    }
+
+    public function deleteLogFile(): HandlesLogs
+    {
+        return app(static::deleteLogFileAction());
     }
 
     public static function deleteLogFileUsing(string $action): void

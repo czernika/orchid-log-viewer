@@ -23,6 +23,14 @@ class TestFeatureCase extends TestCase
             ->display();
     }
 
+    public function seeWithParameters(array $parameters): TestResponse
+    {
+        return $this->screen('platform.logs')
+            ->parameters($parameters)
+            ->actingAs(User::factory()->admin()->create())
+            ->display();
+    }
+
     public function mockLogsWith(array $logs = [], string $file = 'laravel.log'): void
     {
         $this->partialMock(LogServiceContract::class, function (MockInterface $mock) use ($logs, $file) {
@@ -31,6 +39,10 @@ class TestFeatureCase extends TestCase
             );
 
             $mock->shouldReceive('resolveSelectedFile')->once()->andReturn($file);
+
+            $mock->shouldReceive('levelKey');
+            $mock->shouldReceive('fileKey');
+            $mock->shouldReceive('logFiles');
         });
     }
 }
