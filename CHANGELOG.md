@@ -3,6 +3,7 @@
 ## v1.0.4 Jan 12, 2024 
 
 - Revert: removed contract for LogData
+- Fix: fixing `pageName` return type
 - Tests: fixing old method name
 
 ## v1.0.3 Jan 12, 2024 
