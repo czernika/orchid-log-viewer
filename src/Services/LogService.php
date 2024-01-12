@@ -68,7 +68,7 @@ class LogService implements LogServiceContract
     /**
      * Pagination `pageName` option
      */
-    protected function pageName(): int
+    protected function pageName(): string
     {
         return config('orchid-log.table.page_name', 'page');
     }
