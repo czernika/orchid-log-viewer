@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Czernika\OrchidLogViewer;
 
+use Czernika\OrchidLogViewer\Contracts\LogDataContract;
 use Czernika\OrchidLogViewer\Support\Traits\Contentable;
 
 /**
@@ -17,7 +18,7 @@ use Czernika\OrchidLogViewer\Support\Traits\Contentable;
  * @method string inFile()
  * @method string date()
  */
-class LogData
+class LogData implements LogDataContract
 {
     use Contentable;
 
@@ -32,7 +33,7 @@ class LogData
      * Assign Bootstrap color class to colorize icon
      * because colorized things is way cooler
      */
-    public function bootstrapClass(): string
+    public function levelColorClass(): string
     {
         return match ($this->level()) {
             'debug', 'info', 'notice', 'processed' => 'text-primary',

@@ -4,6 +4,8 @@
 
 - Feat: separated logic to show filters
 - Feat: added options to configure table pagination
+- Refactor: added contract for LogData object
+- Style: fixing 'yoda_style' rule
 
 ## v1.0.2 Jan 11, 2024 
 

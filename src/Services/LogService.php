@@ -96,7 +96,7 @@ class LogService implements LogServiceContract
      */
     protected function logsAreEmpty(array $logs): bool
     {
-        return $logs[0]['text'] === '';
+        return '' === $logs[0]['text'];
     }
 
     /**

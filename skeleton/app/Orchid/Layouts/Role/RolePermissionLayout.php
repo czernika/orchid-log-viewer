@@ -48,7 +48,7 @@ class RolePermissionLayout extends Rows
         return $permissions
             ->map(fn (array $chunks) => $this->makeCheckBox(collect($chunks)))
             ->flatten()
-            ->map(fn (CheckBox $checkbox, $key) => $key === 0
+            ->map(fn (CheckBox $checkbox, $key) => 0 === $key
                 ? $checkbox->title($title)
                 : $checkbox)
             ->chunk(4)
@@ -71,6 +71,6 @@ class RolePermissionLayout extends Rows
 
     private function getIndeterminateStatus($slug, $value): bool
     {
-        return optional($this->user)->hasAccess($slug) === true && $value === false;
+        return true === optional($this->user)->hasAccess($slug) && false === $value;
     }
 }

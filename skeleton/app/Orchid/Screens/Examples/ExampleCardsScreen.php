@@ -66,7 +66,7 @@ class ExampleCardsScreen extends Screen
                 Sight::make('id')->popover('Identifier, a symbol which uniquely identifies an object or record'),
                 Sight::make('name'),
                 Sight::make('email'),
-                Sight::make('email_verified_at', 'Email Verified')->render(fn (User $user) => $user->email_verified_at === null
+                Sight::make('email_verified_at', 'Email Verified')->render(fn (User $user) => null === $user->email_verified_at
                     ? '<i class="text-danger">●</i> False'
                     : '<i class="text-success">●</i> True'),
                 Sight::make('created_at', 'Created'),
