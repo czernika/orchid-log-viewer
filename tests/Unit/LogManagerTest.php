@@ -12,6 +12,8 @@ use Tests\App\Layouts\TestOrchidLogTableLayout;
 use Tests\App\Screen\TestOrchidLogListScreen;
 use Tests\App\TestLogData;
 
+uses()->group('unit.log-manager');
+
 afterAll(function () {
     // Rollback
     LogManager::useScreen(OrchidLogListScreen::class);

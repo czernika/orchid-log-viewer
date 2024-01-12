@@ -2,8 +2,10 @@
 
 use Czernika\OrchidLogViewer\LogData;
 
-describe('log data mapper', function () {
-    it('gets correct data from an array', function (string $method, string $expected) {
+uses()->group('unit.log-data');
+
+describe('log data', function () {
+    it('gets correct data from raw log', function (string $method, string $expected) {
         $mapper = new LogData([
             'context' => 'Context',
             'level' => 'error',
@@ -29,10 +31,10 @@ describe('log data mapper', function () {
         'date data' => ['date', '2024-01-09 09:46:32'],
     ]);
 
-    it('get correct bootstrap class according to log level', function (string $level, $expectedClass) {
+    it('resolves correct level color class according to log level', function (string $level, $expectedClass) {
         $mapper = new LogData(compact('level'));
 
-        expect($mapper->bootstrapClass())->toBe($expectedClass);
+        expect($mapper->levelColorClass())->toBe($expectedClass);
     })->with([
         ['debug', 'text-primary'],
         ['info', 'text-primary'],

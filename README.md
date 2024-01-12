@@ -154,10 +154,9 @@ Create new class
 > Remember - it will accept only array of log data!
 
 ```php
-use Czernika\OrchidLogViewer\Contracts\LogDataContract;
 use Czernika\OrchidLogViewer\LogData;
 
-class CustomLogData extends LogData implements LogDataContract
+class CustomLogData extends LogData
 {
     public function areWeGood(): bool
     {
@@ -181,7 +180,7 @@ Now you can render custom layout
 
 ```php
 TD::make('are_we_good')
-    ->render(fn (LogDataContract $log) => $log->areWeGood()),
+    ->render(fn (LogData $log) => $log->areWeGood()),
 ```
 
 If you wish to keep possibility for Orchid shortcuts name array of data as `$data` variable and use `Contentable` trait in custom class

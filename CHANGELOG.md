@@ -1,6 +1,11 @@
 # Releases
 
-## v1.0.3 Jan 11, 2024 
+## v1.0.4 Jan 12, 2024 
+
+- Revert: removed contract for LogData
+- Tests: fixing old method name
+
+## v1.0.3 Jan 12, 2024 
 
 - Feat: separated logic to show filters
 - Feat: added options to configure table pagination

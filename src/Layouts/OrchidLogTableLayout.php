@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Czernika\OrchidLogViewer\Layouts;
 
-use Czernika\OrchidLogViewer\Contracts\LogDataContract;
+use Czernika\OrchidLogViewer\LogData;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
 use Orchid\Screen\Actions\ModalToggle;
@@ -20,7 +20,7 @@ class OrchidLogTableLayout extends Table
     protected function levelColumn(): TD
     {
         return TD::make('level', trans('orchid-log::messages.layout.stack'))
-            ->render(function (LogDataContract $log) {
+            ->render(function (LogData $log) {
                 return Blade::render(
                     /** translators: 1 - Bootstrap icon name; 2 - log level; 3 - Bootstrap text-color class */
                     sprintf('<x-orchid-icon path="bs.%1$s" class="me-1 %3$s" /> %2$s',
@@ -42,7 +42,7 @@ class OrchidLogTableLayout extends Table
     protected function stackTraceColumn(): TD
     {
         return TD::make('stack', trans('orchid-log::messages.layout.stack'))
-            ->render(function (LogDataContract $log) {
+            ->render(function (LogData $log) {
                 if ('' === $log->stack()) {
                     return '';
                 }

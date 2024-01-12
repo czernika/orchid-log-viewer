@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Czernika\OrchidLogViewer;
 
-use Czernika\OrchidLogViewer\Contracts\LogDataContract;
 use Czernika\OrchidLogViewer\Support\Traits\Contentable;
 
 /**
@@ -18,7 +17,7 @@ use Czernika\OrchidLogViewer\Support\Traits\Contentable;
  * @method string inFile()
  * @method string date()
  */
-class LogData implements LogDataContract
+class LogData
 {
     use Contentable;
 
