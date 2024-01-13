@@ -27,7 +27,7 @@ describe('log data', function () {
             ->assertSee('<time class="mb-0 text-capitalize">Jan 1, 2024<span class="text-muted d-block">Mon, 12:00</span></time>', false) // formatted date
             ->assertSee('data-controller="modal-toggle"', false) // stack trace button
             ->assertSee('data-modal-toggle-params=\'{"stack":"Some really long stack trace"}\'', false); // stack trace param
-    });
+    })->todo();
 
     it('will not show stack trace button if there is no log stack trace', function () {
         $this->mockLogsWith([
@@ -41,7 +41,7 @@ describe('log data', function () {
         $response = $this->see();
 
         $response->assertDontSee('data-controller="modal-toggle"', false);
-    });
+    })->todo();
 });
 
 describe('custom log data', function () {

@@ -11,5 +11,10 @@
 |
 */
 
-uses(Tests\TestUnitCase::class)->in('Unit');
-uses(Tests\TestFeatureCase::class)->in('Feature');
+uses(Tests\TestUnitCase::class)->beforeEach(function () {
+    $this->withoutExceptionHandling();
+})->in('Unit');
+
+uses(Tests\TestFeatureCase::class)->beforeEach(function () {
+    $this->withoutExceptionHandling();
+})->in('Feature');

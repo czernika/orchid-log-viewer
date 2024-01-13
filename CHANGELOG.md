@@ -1,5 +1,9 @@
 # Releases
 
+## v1.0.5 Jan 13, 2024 
+
+- Refactor: refactor `rawLogs` method to select file before getting logs
+
 ## v1.0.4 Jan 12, 2024 
 
 - Revert: removed contract for LogData

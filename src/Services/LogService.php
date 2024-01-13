@@ -27,8 +27,6 @@ class LogService implements LogServiceContract
      */
     public function logs(): LengthAwarePaginator
     {
-        $this->setSelectedFile();
-
         $logs = $this->rawLogs();
 
         // Return early if there are no logs or when there are no log files at all.
@@ -41,8 +39,8 @@ class LogService implements LogServiceContract
         $logs = collect($logs)
 
             // Filter logs by level
-            ->when($this->request->query->has($this->levelKey()), function (Collection $collection) {
-                return $collection->filter(fn (array $log) => $log['level'] === $this->request->query->get($this->levelKey()));
+            ->when($this->levelFilterEnabled(), function (Collection $collection) {
+                return $collection->filter(fn (array $log) => $log['level'] === $this->levelFilterValue());
             })
 
             // Convert into LogData object
@@ -53,7 +51,7 @@ class LogService implements LogServiceContract
             $logs->count(),
             $this->perPage(),
             $page,
-            ['pageName' => $this->pageName(), 'path' => route(config('orchid-log.screen.route', 'platform.logs'))],
+            $this->paginationOptions(),
         );
     }
 
@@ -68,7 +66,7 @@ class LogService implements LogServiceContract
     /**
      * Pagination `pageName` option
      */
-    protected function pageName(): string
+    public function pageName(): string
     {
         return config('orchid-log.table.page_name', 'page');
     }
@@ -78,6 +76,8 @@ class LogService implements LogServiceContract
      */
     public function rawLogs(): array
     {
+        $this->setSelectedFile();
+
         return $this->logViewer->all();
     }
 
@@ -113,6 +113,30 @@ class LogService implements LogServiceContract
     public function levelKey(): string
     {
         return config('orchid-log.filters.levelKey', 'level');
+    }
+
+    /**
+     * Determine if level filter is enabled
+     */
+    public function levelFilterEnabled(): bool
+    {
+        return $this->request->query->has($this->levelKey());
+    }
+
+    /**
+     * Resolve level filter value from request
+     */
+    public function levelFilterValue(): ?string
+    {
+        return $this->request->query->get($this->levelKey());
+    }
+
+    /**
+     * Get pagination options
+     */
+    public function paginationOptions(): array
+    {
+        return ['pageName' => $this->pageName(), 'path' => route(config('orchid-log.screen.route', 'platform.logs'))];
     }
 
     /**
