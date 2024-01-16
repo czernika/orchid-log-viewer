@@ -36,7 +36,7 @@ class OrchidLogTableLayout extends Table
     {
         return TD::make('text', trans('orchid-log::messages.layout.text'))
             ->cantHide()
-            ->width('70%');
+            ->width(config('orchid-log.table.text_column_width', 700));
     }
 
     protected function stackTraceColumn(): TD
@@ -62,7 +62,11 @@ class OrchidLogTableLayout extends Table
         return TD::make('date', trans('orchid-log::messages.layout.date'))
             ->alignRight()
             ->cantHide()
-            ->usingComponent(DateTimeSplit::class);
+            ->usingComponent(DateTimeSplit::class, ...config('orchid-log.table.date_column_params', [
+                'upperFormat' => 'M j, Y',
+                'lowerFormat' => 'D, H:i',
+                'tz' => null,
+            ]));
     }
 
     protected function columns(): iterable

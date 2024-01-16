@@ -73,6 +73,30 @@ return [
          |
          */
         'page_name' => 'page',
+
+        /*
+         |--------------------------------------------------------------------------
+         | Params for DateTimeSplit component
+         |--------------------------------------------------------------------------
+         |
+         */
+        'date_column_params' => [
+            'upperFormat' => 'M j, Y',
+            'lowerFormat' => 'D, H:i',
+            'tz' => null,
+        ],
+
+        /*
+         |--------------------------------------------------------------------------
+         | Text column width
+         |--------------------------------------------------------------------------
+         |
+         | Text column which contains information about log message can be huge
+         | It is better to define its width. Accept integers (pixel values)
+         | or any valid CSS size value (e.g, '70%')
+         |
+         */
+        'text_column_width' => 700, // px
     ],
 
     /*
