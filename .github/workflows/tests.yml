@@ -6,6 +6,9 @@ on:
       - master
     paths:
       - "**/*.php"
+      - "composer.*"
+      - "phpunit.xml"
+      - ".github/workflows/tests.yml"
   pull_request:
 
 jobs:
@@ -15,19 +18,26 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php-version: [8.1, 8.2, 8.3]
-        laravel-version: [10.*]
+        php: [8.1, 8.2, 8.3]
+        laravel: [10.*, 11.*]
+        include:
+          - laravel: 11.*
+            testbench: 9.*
+          - laravel: 10.*
+            testbench: 8.*
+        exclude:
+          - laravel: 11.*
+            php: 8.1
 
-    name: PHP ${{ matrix.php-version }} | Laravel - ${{ matrix.laravel-version }}
+    name: PHP ${{ matrix.php }} | Laravel - ${{ matrix.laravel }}
 
     steps:
       - uses: actions/checkout@v4
 
-      # see https://github.com/shivammathur/setup-php
       - name: Prepare PHP test environment
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: ${{ matrix.php }}
           tools: composer:v2
 
       - name: Get composer cache directory
@@ -38,15 +48,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-php-${{ matrix.php-version }}-laravel-${{ matrix.laravel-version }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel-version }}" "orchestra/testbench:8.*" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --prefer-dist --no-interaction
-          ./vendor/bin/testbench orchid:install
 
       - name: Running tests
         run: composer test

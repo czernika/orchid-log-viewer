@@ -1,3 +1,5 @@
 /.github  export-ignore
 /skeleton export-ignore
 /tests    export-ignore
+testbench.yaml export-ignore
+phpunit.xml export-ignore
