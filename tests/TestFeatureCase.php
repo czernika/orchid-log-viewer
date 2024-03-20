@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
 use Orchid\Support\Testing\ScreenTesting;
-use Plannr\Laravel\FastRefreshDatabase\Traits\FastRefreshDatabase;
 
 class TestFeatureCase extends TestCase
 {
-    use FastRefreshDatabase, ScreenTesting;
+    use RefreshDatabase, ScreenTesting;
 
     public function see(): TestResponse
     {
