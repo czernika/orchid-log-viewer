@@ -1,8 +1,6 @@
 providers:
   - Orchid\Platform\Providers\FoundationServiceProvider
   - Czernika\OrchidLogViewer\OrchidLogServiceProvider
- 
-laravel: ./skeleton
 
 workbench:
   install: true
@@ -16,6 +14,7 @@ workbench:
     - asset-publish
     - create-sqlite-db
     - migrate:refresh
+    - orchid-install
   assets:
     - orchid-assets
   sync: []
