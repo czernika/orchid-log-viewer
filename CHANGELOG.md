@@ -1,5 +1,9 @@
 # Releases
 
+## v1.0.8 - 2024-04-15
+
+- refactor: show last daily logs as selected if default channel is daily
+
 ## v1.0.7 - 2024-03-20
 
 - Laravel 11 support
