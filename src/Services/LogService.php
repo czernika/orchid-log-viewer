@@ -144,7 +144,13 @@ class LogService implements LogServiceContract
      */
     public function defaultLogFile(): string
     {
-        return config('orchid-log.default', 'laravel.log');
+        $default = config('orchid-log.default', 'laravel.log');
+
+        if ('daily' === config('logging.default')) {
+            return isset($this->logFiles()[1]) ? $this->logFiles()[1] : $default;
+        }
+
+        return $default;
     }
 
     /**

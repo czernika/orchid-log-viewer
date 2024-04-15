@@ -57,7 +57,10 @@ class LogFilter extends Filter
             $filters[] = Select::make($this->logService->fileKey())
                 ->title('orchid-log::messages.filter.headings.file')
                 ->options($this->logService->logFiles())
-                ->value($this->request->get($this->logService->fileKey()));
+                ->value($this->request->get(
+                    $this->logService->fileKey(),
+                    config('logging.default') === 'daily' ? 1 : null,
+                ));
         }
 
         if (config('orchid-log.filters.enabled.level', true)) {
