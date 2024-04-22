@@ -253,6 +253,7 @@ Also you can disable registration of menu item and route completely but you have
 ## Known issues
 
 - Works only with "laravelish" logs - if you put for example `worker.log` which created by process managers like supervisor or pm2 it will not be recognized correctly
+- 414 Error may occur when calling stack trace modal
 
 ## Roadmap
 

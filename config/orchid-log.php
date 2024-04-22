@@ -97,6 +97,29 @@ return [
          |
          */
         'text_column_width' => 700, // px
+
+        /*
+         |--------------------------------------------------------------------------
+         | Stack trace column
+         |--------------------------------------------------------------------------
+         |
+         | Show modal toggle to view stack trace or not. It may throw 414 error which
+         | may be annoying for end-users, so ypu may want to disable it or shorten
+         |
+         */
+        'stack' => [
+            'render' => true,
+
+            /*
+            |--------------------------------------------------------------------------
+            | Limit stack trace message
+            |--------------------------------------------------------------------------
+            |
+            | Set "0" if you wish to keep full length trace
+            |
+            */
+            'limit' => 1000, // characters
+        ],
     ],
 
     /*

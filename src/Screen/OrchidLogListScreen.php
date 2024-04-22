@@ -13,6 +13,8 @@ use Orchid\Screen\Layouts\Modal;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
+use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 
 class OrchidLogListScreen extends Screen
 {
@@ -66,27 +68,36 @@ class OrchidLogListScreen extends Screen
 
     public function layout(): iterable
     {
-        return [
+        return array_filter([
             OrchidLogFilterLayout::class,
-            Layout::modal('logModal', [
-                Layout::rows([
-                    TextArea::make('stack')
-                        ->readonly(false) // TODO make an option
-                        ->rows(40),
-                ]),
-            ])
-                ->async('asyncGetLog')
-                ->withoutApplyButton()
-                ->title(trans('orchid-log::messages.layout.stack'))
-                ->size(Modal::SIZE_LG),
+
+            config('orchid-log.table.stack.render', true) ?
+                Layout::modal('logModal', [
+                    Layout::rows([
+                        TextArea::make('stack')
+                            ->readonly(false) // TODO make an option
+                            ->rows(40),
+                    ]),
+                ])
+                    ->async('asyncGetLog')
+                    ->withoutApplyButton()
+                    ->title(trans('orchid-log::messages.layout.stack'))
+                    ->size(Modal::SIZE_LG) :
+                null,
 
             LogManager::layout(),
-        ];
+        ]);
     }
 
     public function asyncGetLog(string $stack): array
     {
-        return compact('stack');
+        return [
+            'stack' => Str::of($stack)
+                ->when((int) config('orchid-log.table.stack.limit') > 0, function (Stringable $val) {
+                    return $val->limit(config('orchid-log.table.stack.limit', 400));
+                })
+                ->value(),
+        ];
     }
 
     protected function canSeeCleanBtn(): bool

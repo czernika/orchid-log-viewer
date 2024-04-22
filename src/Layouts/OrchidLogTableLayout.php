@@ -19,7 +19,7 @@ class OrchidLogTableLayout extends Table
 
     protected function levelColumn(): TD
     {
-        return TD::make('level', trans('orchid-log::messages.layout.stack'))
+        return TD::make('level', trans('orchid-log::messages.layout.level'))
             ->render(function (LogData $log) {
                 return Blade::render(
                     /** translators: 1 - Bootstrap icon name; 2 - log level; 3 - Bootstrap text-color class */
@@ -71,11 +71,11 @@ class OrchidLogTableLayout extends Table
 
     protected function columns(): iterable
     {
-        return [
+        return array_filter([
             $this->levelColumn(),
             $this->textColumn(),
-            $this->stackTraceColumn(),
+            config('orchid-log.table.stack.render', true) ? $this->stackTraceColumn() : null,
             $this->dateColumn(),
-        ];
+        ]);
     }
 }

@@ -2,7 +2,7 @@
     "name": "czernika/orchid-log-viewer",
     "description": "Manage your Laravel app logs within Orchid admin panel ",
     "license": "MIT",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "authors": [
         {
             "name": "Aliakseyenka Ihar",
