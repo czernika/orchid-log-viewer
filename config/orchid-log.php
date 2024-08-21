@@ -64,21 +64,18 @@ return [
      |
      */
     'table' => [
+        /**
+         * How many records to show per page
+         */
         'per_page' => 15,
 
-        /*
-         |--------------------------------------------------------------------------
-         | Pagination key name
-         |--------------------------------------------------------------------------
-         |
+        /**
+         * Pagination key name
          */
         'page_name' => 'page',
 
-        /*
-         |--------------------------------------------------------------------------
-         | Params for DateTimeSplit component
-         |--------------------------------------------------------------------------
-         |
+        /**
+         * Params for DateTimeSplit component
          */
         'date_column_params' => [
             'upperFormat' => 'M j, Y',
@@ -86,38 +83,27 @@ return [
             'tz' => null,
         ],
 
-        /*
-         |--------------------------------------------------------------------------
-         | Text column width
-         |--------------------------------------------------------------------------
-         |
-         | Text column which contains information about log message can be huge
-         | It is better to define its width. Accept integers (pixel values)
-         | or any valid CSS size value (e.g, '70%')
-         |
+        /**
+         * Text column width
+         * 
+         * Text column which contains information about log message can be huge
+         * It is better to define its width. Accept integers (pixel values)
+         * or any valid CSS size value (e.g, '70%')
          */
         'text_column_width' => 700, // px
 
-        /*
-         |--------------------------------------------------------------------------
-         | Stack trace column
-         |--------------------------------------------------------------------------
-         |
-         | Show modal toggle to view stack trace or not. It may throw 414 error which
-         | may be annoying for end-users, so ypu may want to disable it or shorten
-         |
-         */
         'stack' => [
+            /**
+             * Show modal toggle to view stack trace or not. It may throw 414 error which
+             * may be annoying for end-users, so you may want to disable it or shorten
+             */
             'render' => true,
 
-            /*
-            |--------------------------------------------------------------------------
-            | Limit stack trace message
-            |--------------------------------------------------------------------------
-            |
-            | Set "0" if you wish to keep full length trace
-            |
-            */
+            /**
+             * Limit stack trace message
+             *
+             * Set "0" if you wish to keep full length trace
+             */
             'limit' => 1000, // characters
         ],
     ],
@@ -130,40 +116,28 @@ return [
      | Manage storage logs filters
      |
      */
-
     'filters' => [
-        /*
-         |--------------------------------------------------------------------------
-         | Disable filters completely
-         |--------------------------------------------------------------------------
-         |
+        /**
+         * Disable filters completely
          */
-
         'enabled' => [
             'level' => true,
             'file' => true,
         ],
 
-        /*
-         |--------------------------------------------------------------------------
-         | Filter keys
-         |--------------------------------------------------------------------------
-         |
-         | If you encounter some issues or conflicts with the name of used filter keys,
-         | you can change them here
-         */
-
+         /**
+          * Filter key names
+          * 
+          * If you encounter some issues or conflicts with the name of used filter keys you can change them here
+          */
         'fileKey' => 'file',
         'levelKey' => 'level',
 
-        /*
-         |--------------------------------------------------------------------------
-         | Exclude log files from filters
-         |--------------------------------------------------------------------------
-         |
-         | If you wish to exclude specific log files from filter, pass these files here.
-         | You can pass plain log file name or regex
-         |
+        /**
+         * Exclude log files from filters
+         *
+         * If you wish to exclude specific log files from filter, pass these files here.
+         * You can pass plain log file name or regular expression
          */
         'exclude' => [
             // 'worker.log', // exclude specific file by name
@@ -171,16 +145,17 @@ return [
         ],
     ],
 
+    /*
+     |--------------------------------------------------------------------------
+     | Sidebar dashboard menu
+     |--------------------------------------------------------------------------
+     */
     'menu' => [
-        /*
-         |--------------------------------------------------------------------------
-         | Register menu automatically in a sidebar or not
-         |--------------------------------------------------------------------------
-         |
-         | If you encounter some issues or conflicts with the name of used filter keys,
-         | you can change them here
+        
+        /**
+         * Register or not to register - that is the question
+         * If set to `false` you need to register it manually in PlatformProvider to add menu link to sidebar
          */
-
         'register' => true,
     ],
 ];

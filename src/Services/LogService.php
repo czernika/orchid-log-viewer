@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Czernika\OrchidLogViewer\Services;
 
 use Czernika\OrchidLogViewer\Contracts\LogServiceContract;
-use Czernika\OrchidLogViewer\LogData;
 use Czernika\OrchidLogViewer\LogManager;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -18,7 +16,6 @@ class LogService implements LogServiceContract
 {
     public function __construct(
         protected readonly LaravelLogViewer $logViewer,
-        protected readonly Request $request,
     ) {
     }
 
@@ -120,7 +117,7 @@ class LogService implements LogServiceContract
      */
     public function levelFilterEnabled(): bool
     {
-        return $this->request->query->has($this->levelKey());
+        return request()->query->has($this->levelKey());
     }
 
     /**
@@ -128,7 +125,7 @@ class LogService implements LogServiceContract
      */
     public function levelFilterValue(): ?string
     {
-        return $this->request->query->get($this->levelKey());
+        return request()->query->get($this->levelKey());
     }
 
     /**
@@ -168,8 +165,8 @@ class LogService implements LogServiceContract
      */
     public function resolveSelectedFile(): string
     {
-        return $this->request->query->has($this->fileKey()) ?
-            $this->logFile($this->request->query->get($this->fileKey())) :
+        return request()->query->has($this->fileKey()) ?
+            $this->logFile(request()->query->get($this->fileKey())) :
             $this->defaultLogFile();
     }
 
