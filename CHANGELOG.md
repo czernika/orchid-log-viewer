@@ -1,5 +1,9 @@
 # Releases
 
+## v1.0.10 - 2024-08-21
+
+- fix: remove Request object from screen dependency as it caused serialize error after 14.30 release
+
 ## v1.0.9 - 2024-04-22
 
 - feat: added option to hide stack trace button
