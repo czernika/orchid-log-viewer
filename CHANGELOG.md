@@ -1,5 +1,11 @@
 # Releases
 
+## v1.0.9 - 2024-04-22
+
+- feat: added option to hide stack trace button
+- feat: added option to limit stack trace text
+- fix: fixed incorrect level table heading translation key
+
 ## v1.0.8 - 2024-04-15
 
 - refactor: show last daily logs as selected if default channel is daily
